@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
       res.status(500).json(err);
     });
 });
-
+//gets just one by id
 router.get('/:id', (req, res) => {
   User.findOne({
     attributes: { exclude: ['password'] },
@@ -32,7 +32,7 @@ router.get('/:id', (req, res) => {
       res.status(500).json(err);
     });
 });
-
+//create new
 router.post('/', (req, res) => {
   // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
   User.create({
@@ -46,12 +46,13 @@ router.post('/', (req, res) => {
       res.status(500).json(err);
     });
 });
-
+//UPdate
 router.put('/:id', (req, res) => {
   // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
 
   // pass in req.body instead to only update what's passed through
   User.update(req.body, {
+    individualHooks: true,
     where: {
       id: req.params.id
     }
@@ -68,7 +69,7 @@ router.put('/:id', (req, res) => {
       res.status(500).json(err);
     });
 });
-
+//delte
 router.delete('/:id', (req, res) => {
   User.destroy({
     where: {
